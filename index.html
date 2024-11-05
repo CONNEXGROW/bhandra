@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhandara - Sharing Love Through Food</title>
+    <title>Punya Pantry - Sharing Love Through Food</title>
     <style>
         :root {
             --primary-color: #FF8C00;
@@ -247,7 +247,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Bhandara</div>
+                <div class="logo">Punya Pantry</div>
                 <button class="mobile-menu-button">☰</button>
                 <div class="nav-links">
                     <a href="#">Home</a>
@@ -288,21 +288,21 @@
         <div class="container">
             <div class="stats-container">
                 <div class="stat-item">
-                    <div class="stat-value" id="meals-served">100K+</div>
+                    <div class="stat-value" id="meals-served">10,000K+</div>
                     <div class="stat-label">Meals Served</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value" id="volunteers">5K+</div>
+                    <div class="stat-value" id="volunteers">50,000K+</div>
                     <div class="stat-label">Dedicated Volunteers</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value" id="communities">50+</div>
                     <div class="stat-label">Communities Impacted</div>
                 </div>
-                <div class="stat-item">
+                <!-- <div class="stat-item">
                     <div class="stat-value" id="years-service">25+</div>
                     <div class="stat-label">Years of Service</div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -311,8 +311,8 @@
         <section class="content-section">
             <div class="container">
                 <h2>Embracing the Spirit of Bhandara</h2>
-                <p>At Bhandara, we believe in the power of food to unite, heal, and spread joy. Our mission is to revive the ancient tradition of communal meals, fostering a sense of belonging and compassion in every community we touch. Through the simple act of sharing a meal, we create bonds that transcend barriers and nurture the soul.</p>
-                <img src="https://images.unsplash.com/photo-1609139003551-ee5552a8d95a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Community Meal" style="max-width: 100%; height: auto; margin-bottom: 2rem; border-radius: 10px;">
+                <p>At Punya Pantry, we believe in the power of food to unite, heal, and spread joy. Our mission is to revive the ancient tradition of communal meals, fostering a sense of belonging and compassion in every community we touch. Through the simple act of sharing a meal, we create bonds that transcend barriers and nurture the soul.</p>
+                <img src="https://bhandara.app/images/SQUARE.jpg" alt="Community Meal" style="max-width: 100%; height: auto; margin-bottom: 2rem; border-radius: 10px;">
             </div>
         </section>
 
@@ -330,7 +330,7 @@
                 <div class="media-logos">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/BBC_News_2019.svg/1200px-BBC_News_2019.svg.png" alt="BBC News Logo" class="media-logo">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/The_Guardian_2018.svg/2560px-The_Guardian_2018.svg.png" alt="The Guardian Logo" class="media-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Times_logo.svg/2560px-The_Times_logo.svg.png" alt="The Times Logo" class="media-logo">
+                    <img src="images.png" alt="The Times Logo" class="media-logo">
                 </div>
             </div>
         </section>
@@ -338,37 +338,59 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 Bhandara - Sharing Love Through Food. All rights reserved.</p>
+            <p>&copy; 2023 Punya Pantry - Sharing Love Through Food. All rights reserved.</p>
         </div>
     </footer>
 
     <a href="#" class="whatsapp-button" aria-label="Chat on WhatsApp">💬</a>
 
     <script>
-        function animateValue(id, start, end, duration) 
+         // Function to animate counting up to a target number with controlled speed
+         function animateValue(id, start, end, duration) 
         {
-            let range = end - start;
-            let current = start;
-            let increment = end > start ? 1 : -1;
-            let stepTime = Math.abs(Math.floor(duration / range));
+            // Ensure we don't divide by zero
+            if (duration <= 0) {
+                return;
+            }
+
             let obj = document.getElementById(id);
-            let timer = setInterval(function() {
-                current += increment;
-                obj.innerHTML = current + "+";
-                if (current == end) {
+            let range = end - start;
+            
+            // Calculate the increment per frame
+            let minTimer = 50; // Minimum time between updates in milliseconds
+            let stepTime = Math.abs(Math.floor(duration / range));
+            
+            // Ensure stepTime is not smaller than minTimer
+            stepTime = Math.max(stepTime, minTimer);
+
+            let startTime = new Date().getTime();
+            let endTime = startTime + duration;
+            let timer;
+
+            function run() {
+                let now = new Date().getTime();
+                let remaining = Math.max((endTime - now) / duration, 0);
+                let value = Math.round(end - (remaining * range));
+                obj.innerHTML = value + "+";
+                if (value == end) {
                     clearInterval(timer);
                 }
-            }, stepTime);
+            }
+
+            timer = setInterval(run, stepTime);
+            run();
         }
 
-        // Animate stats when the page loads
+        // When the page loads, start the animations for the statistics
         window.onload = function() {
-            animateValue("meals-served", 0, 100, 2000);
-            animateValue("volunteers", 0, 5, 2000);
-            animateValue("communities", 0, 50, 2000);
-            animateValue("years-service", 0, 25, 2000);
+            // Animate each statistic with different durations
+            animateValue("meals-served", 0, 10000, 3000);  // 3 seconds
+            animateValue("volunteers", 0, 50000, 4000);   // 4 seconds
+            animateValue("communities", 0, 50, 2000);     // 2 seconds
+            animateValue("years-service", 0, 25, 1500);   // 1.5 seconds
         }
 
+        // (Rest of the JavaScript remains unchanged)
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
